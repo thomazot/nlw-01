@@ -4,11 +4,17 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "set debug=* && ts-node-dev --respawn --transpileOnly ./src/server.ts"
+        "start": "set debug=* && ts-node-dev --respawn --transpileOnly --ignore-watch node_modules ./src/server.ts",
+        "migrations": "knex --knexfile knexfile.ts migrate:latest",
+        "seeds": "knex --knexfile knexfile.ts seed:run"
     },
     "dependencies": {
+        "@types/cors": "^2.8.6",
+        "cors": "^2.8.5",
         "dotenv": "^8.2.0",
-        "express": "^4.17.1"
+        "express": "^4.17.1",
+        "knex": "^0.21.1",
+        "sqlite3": "^4.2.0"
     },
     "devDependencies": {
         "@types/express": "^4.17.6",

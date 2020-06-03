@@ -1,0 +1,26 @@
+GET http://localhost:3030/items HTTP/1.1
+
+### Ponto de Coleta
+POST  http://localhost:3030/points HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Mercado do seu Zé",
+    "email": "contato@imperatriz.com.br",
+    "whatsapp": "43434343434",
+    "latitude": -46.81273213,
+    "longitude": -35.19238112,
+    "city": "São Paulo",
+    "uf": "SP",
+    "items": [
+        1,
+        2,
+        43
+    ]
+}
+
+### Buscar um unico ponto 
+GET  http://localhost:3030/points/2 HTTP/1.1
+
+### Listar pontos Filtrados
+GET  http://localhost:3030/points?city=São Paulo&uf=SP&items=1,2 HTTP/1.1
