@@ -62,22 +62,30 @@ class PointsController {
             city,
             uf,
         }
-        const insertedIds = await trx("points").insert(point)
-        const point_id = insertedIds[0]
-        const pointItems = items.map((item_id: number) => ({
-            item_id,
-            point_id,
-        }))
 
-        await trx("point_items").insert(pointItems)
+        try {
+            const insertedIds = await trx("points").insert(point)
+            const point_id = insertedIds[0]
+            const pointItems = items.map((item_id: number) => ({
+                item_id,
+                point_id,
+            }))
 
-        await trx.commit()
+            await trx("point_items").insert(pointItems)
 
-        res.json({
-            id: point_id,
-            ...point,
-            items,
-        })
+            await trx.commit()
+
+            res.json({
+                id: point_id,
+                ...point,
+                items,
+            })
+        } catch (err) {
+            await trx.rollback()
+            res.json({
+                message: err.message
+            })
+        }
     }
 }
 
